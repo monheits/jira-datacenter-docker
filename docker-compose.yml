@@ -2,7 +2,7 @@ version: '2'
 
 services:
   node1:
-    image: cptactionhank/atlassian-jira-software:7.3.4
+    image: cptactionhank/atlassian-jira-software:7.4.0
     ports:
      - 9090:8080
     volumes:
@@ -11,7 +11,7 @@ services:
     environment:
       CATALINA_OPTS: -Datlassian.cluster.scale=true -DjvmRoute=node1 -Datlassian.plugins.enable.wait=300
   node2:
-    image: cptactionhank/atlassian-jira-software:7.3.4
+    image: cptactionhank/atlassian-jira-software:7.4.0
     ports:
      - 9091:8080
     volumes:
@@ -19,6 +19,26 @@ services:
     - ./jira-shared-home:/var/atlassian/jira-shared-home
     environment:
       CATALINA_OPTS: -Datlassian.cluster.scale=true -DjvmRoute=node2 -Datlassian.plugins.enable.wait=300
+  node3:
+    image: cptactionhank/atlassian-jira-software:7.4.0
+    ports:
+     - 9092:8080
+    volumes:
+    - ./jira-home-node3:/var/atlassian/jira
+    - ./jira-shared-home:/var/atlassian/jira-shared-home
+    environment:
+      CATALINA_OPTS: -Datlassian.cluster.scale=true -DjvmRoute=node3 -Datlassian.plugins.enable.wait=300
+  node4:
+    image: cptactionhank/atlassian-jira-software:7.4.0
+    ports:
+     - 9093:8080
+    volumes:
+    - ./jira-home-node4:/var/atlassian/jira
+    - ./jira-shared-home:/var/atlassian/jira-shared-home
+    environment:
+      CATALINA_OPTS: -Datlassian.cluster.scale=true -DjvmRoute=node4 -Datlassian.plugins.enable.wait=300
+
+
 
   proxy:
     image: httpd:2.4
